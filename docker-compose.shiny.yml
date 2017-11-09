@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  shiny:
+    image: rocker/shiny
+  lb:
+    image: dockercloud/haproxy
+    environment:
+      - HTTP_BASIC_AUTH=fry:fry
+    ports:
+      - "5080:80"
+    links:
+      - shiny
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
